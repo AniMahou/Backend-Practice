@@ -1,4 +1,4 @@
-import User from "../models/User"
+const User = require("../models/User.js") 
 const bcrypt = require('bcryptjs')
 const registerUser = async(req,res)=>{
     try{
@@ -6,7 +6,7 @@ const registerUser = async(req,res)=>{
         const checkExistingUser = await User.findOne({$or : [{username}, {email}]})
 
         if(checkExistingUser){
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: 'User exists with same username/mail'
             })
@@ -37,6 +37,7 @@ const registerUser = async(req,res)=>{
             })
         }
     }catch(e){
+        console.error(e);
         res.status(500).json({
             success: false,
             message: 'Some error occured!'
@@ -45,7 +46,7 @@ const registerUser = async(req,res)=>{
 }
 
 
-const loginUser = async() => {
+const loginUser = async(req,res) => {
     try{
 
     }catch(e){
