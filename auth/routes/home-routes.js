@@ -1,9 +1,18 @@
 const express = require('express')
+const authMiddleware = require("../middleware/auth-middleware")
 const router = express.Router()
 
-router.get("/welcome", (req,res)=> {
+router.get("/welcome", authMiddleware, (req,res)=> {
+    const {username, userID, role} = req.userInfo;
+
     res.json({
         message: "Welcome to home page",
+        user: {
+            _id: userId,
+            username: user.username,
+            role: user.role,
+
+        }
     });
 })
 
